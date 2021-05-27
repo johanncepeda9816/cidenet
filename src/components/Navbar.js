@@ -15,7 +15,7 @@ export default function Navbar() {
                                 Usuarios
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <li><a class="dropdown-item" href="#">Crear nuevo</a></li>
+                                <li><a class="dropdown-item" href="/createUser">Crear nuevo</a></li>
                                 <li><a class="dropdown-item" href="#">Buscar</a></li>
                                 <li><a class="dropdown-item" href="#">Eliminar</a></li>
                             </ul>
