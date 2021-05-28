@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 
-export default function RegisterForm() {
+export default function RegisterForm(props) {
 
-    const initialStateUser = { country: "Colombia", documentType: "Cédula de Ciudadanía", area: "Administración" }
-    const [user, setUser] = useState(initialStateUser);
+    const user = props.user;
     const [currentDate, setDate] = useState();
 
     useEffect(() => {
@@ -28,26 +27,21 @@ export default function RegisterForm() {
     })
 
     const handleData = (e) => {
-        setUser({ ...user, [e.target.name]: e.target.value })
+        props.setUser({ ...user, [e.target.name]: e.target.value })
     }
 
     useEffect(() => {
         const email = user.firstName + "." + user.firstSurname + "@cidenet.com";
-        setUser({ ...user, email: email.toLowerCase() })
+        props.setUser({ ...user, email: email.toLowerCase() })
     }, [user.firstName, user.firstSurname])
-
-    const registerUser = (e) => {
-        e.preventDefault();
-        console.log(user);
-    }
 
     return (
         <div className="">
-            <form onSubmit={(e) => registerUser(e)}>
+            <form onSubmit={(e) => e.preventDefault()}>
                 <h4 className="text-center">Datos Personales</h4>
                 <div className="row mt-5 d-flex justify-content-center">
                     <div className="col-6">
-                        <label for="firstSurname" className="text-dark d-block">Primer apellido</label>
+                        <label htmlFor="firstSurname" className="text-dark d-block">Primer apellido</label>
                         <input id="firstSurname" type="text" maxLength={20} name="firstSurname" value={user.firstSurname || ""}
                             onChange={(e) => handleData(e)}
                             className="col-8"
@@ -55,7 +49,7 @@ export default function RegisterForm() {
                         />
                     </div>
                     <div className="col-6">
-                        <label for="secondSurname" className="text-dark d-block">Segundo apellido</label>
+                        <label htmlFor="secondSurname" className="text-dark d-block">Segundo apellido</label>
                         <input id="secondSurname" type="text" maxLength={20} name="secondSurname" value={user.secondSurname || ""}
                             onChange={(e) => handleData(e)}
                             required
@@ -64,7 +58,7 @@ export default function RegisterForm() {
                         />
                     </div>
                     <div className="col-6">
-                        <label for="firstName" className="text-dark d-block">Primer nombre</label>
+                        <label htmlFor="firstName" className="text-dark d-block">Primer nombre</label>
                         <input id="firstName" type="text" maxLength={20} name="firstName" value={user.firstName || ""}
                             onChange={(e) => handleData(e)}
                             className="col-8"
@@ -73,7 +67,7 @@ export default function RegisterForm() {
                     </div>
 
                     <div className="col-6">
-                        <label for="otherName" className="text-dark d-block">Otros:</label>
+                        <label htmlFor="otherName" className="text-dark d-block">Otros:</label>
                         <input id="otherName" type="text" maxLength={50} name="otherName" value={user.otherName || ""}
                             onChange={(e) => handleData(e)}
                             className="mx-auto col-8"
@@ -81,7 +75,7 @@ export default function RegisterForm() {
                     </div>
 
                     <div className="col-6 mx-auto mt-1">
-                        <label for="documentType" className="text-dark d-block">Tipo de documento</label>
+                        <label htmlFor="documentType" className="text-dark d-block">Tipo de documento</label>
                         <select id="documentType" className=""
                             name="documentType"
                             onChange={(e) => handleData(e)}
@@ -97,7 +91,7 @@ export default function RegisterForm() {
                     </div>
 
                     <div className="col-6 mx-auto mt-1">
-                        <label for="documentNumber" className="text-dark d-block">Número de documento</label>
+                        <label htmlFor="documentNumber" className="text-dark d-block">Número de documento</label>
                         <input id="documentNumber" type="text" maxLength={20} name="documentNumber" value={user.documentNumber || ""}
                             onChange={(e) => handleData(e)}
                             className="mx-auto"
@@ -110,10 +104,10 @@ export default function RegisterForm() {
 
                     <div className="row mt-3">
                         <div className="mx-auto row">
-                            <label for="country" className="text-dark col-4">País de empleo:</label>
+                            <label htmlFor="country" className="text-dark col-4">País de empleo:</label>
                             <select id="country" className="col-8"
                                 name="country" onChange={(e) => handleData(e)}
-                                value={user.country || "Colombia"}
+                                defaultValue={user.country || "Colombia"}
                                 required
                             >
                                 <option>Colombia</option>
@@ -122,11 +116,11 @@ export default function RegisterForm() {
                         </div>
 
                         <div className="mx-auto mt-3 row">
-                            <label for="area" className="text-dark d-inline col-4">Área</label>
+                            <label htmlFor="area" className="text-dark d-inline col-4">Área</label>
                             <select id="area" className="col-8"
                                 name="area"
                                 onChange={(e) => handleData(e)}
-                                value={user.area || "Administración"}
+                                defaultValue={user.area || "Administración"}
                                 required
                             >
                                 <option>Administración</option>
@@ -142,18 +136,14 @@ export default function RegisterForm() {
 
                         <div className="mt-3 row mx-auto">
                             <label className="col-4">Fecha de ingreso</label>
-                            <input className="col-8" type="datetime-local" max={currentDate} required />
+                            <input onChange={(e) => handleData(e)} name="registrationDate" className="col-8" type="datetime-local" max={currentDate} required />
                         </div>
 
                         <div className="mx-auto mt-3 row">
                             <label className="d-inline col-4">Correo electrónico</label>
-                            <input class="col-8" value={user.email || ""} type="email" placeholder={user.email || ""} readonly />
+                            <input className="col-8" value={user.email || ""} type="email" placeholder={user.email || ""} readOnly />
                         </div>
                     </div>
-                </div>
-
-                <div className="d-flex justify-content-center mb-5">
-                    <button type="submit" className=" d-block btn btn-block btn-primary btn-md mt-5">Registrar</button>
                 </div>
             </form>
         </div>

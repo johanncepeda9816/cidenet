@@ -10,14 +10,14 @@ export default function Navbar() {
                 </button>
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <li className="nav-item dropdown">
+                            <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Usuarios
                             </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <li><a class="dropdown-item" href="/createUser">Crear nuevo</a></li>
-                                <li><a class="dropdown-item" href="#">Buscar</a></li>
-                                <li><a class="dropdown-item" href="#">Eliminar</a></li>
+                            <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <li><a className="dropdown-item" href="/createUser">Crear nuevo</a></li>
+                                <li><a className="dropdown-item" href="#">Buscar</a></li>
+                                <li><a className="dropdown-item" href="#">Eliminar</a></li>
                             </ul>
                         </li>
                     </ul>
