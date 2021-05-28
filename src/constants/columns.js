@@ -42,9 +42,22 @@ export const COLUMNS = [
         Filter: ColumnFilter
     },
     {
+        Header: "Area",
+        accessor: "area",
+        Filter: ColumnFilter
+    },
+    {
+        Header: "Fecha de ingreso",
+        accessor: "registrationDate",
+        Filter: ColumnFilter
+    },
+    {
         Header: "Estado",
         accessor: "active",
         Filter: ColumnFilter
+    },
+    {
+        Header: "Opciones",
     },
 
 ]

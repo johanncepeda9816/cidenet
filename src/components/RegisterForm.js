@@ -42,7 +42,7 @@ export default function RegisterForm(props) {
             <form onSubmit={(e) => e.preventDefault()}>
                 <h4 className="text-center">Datos Personales</h4>
                 <div className="row mt-5 d-flex justify-content-center">
-                    <div className="col-6">
+                    <div className="col-12 col-sm-6 col-md-6 col-xs-6">
                         <label htmlFor="firstSurname" className="text-dark d-block">Primer apellido</label>
                         <input id="firstSurname" type="text" maxLength={20} name="firstSurname" value={user.firstSurname || ""}
                             onChange={(e) => handleData(e)}
@@ -50,7 +50,7 @@ export default function RegisterForm(props) {
                             required
                         />
                     </div>
-                    <div className="col-6">
+                    <div className="col-12 col-sm-6 col-md-6 col-xs-6">
                         <label htmlFor="secondSurname" className="text-dark d-block">Segundo apellido</label>
                         <input id="secondSurname" type="text" maxLength={20} name="secondSurname" value={user.secondSurname || ""}
                             onChange={(e) => handleData(e)}
@@ -59,7 +59,7 @@ export default function RegisterForm(props) {
 
                         />
                     </div>
-                    <div className="col-6">
+                    <div className="col-12 col-sm-6 col-md-6 col-xs-6">
                         <label htmlFor="firstName" className="text-dark d-block">Primer nombre</label>
                         <input id="firstName" type="text" maxLength={20} name="firstName" value={user.firstName || ""}
                             onChange={(e) => handleData(e)}
@@ -68,7 +68,7 @@ export default function RegisterForm(props) {
                         />
                     </div>
 
-                    <div className="col-6">
+                    <div className="col-12 col-sm-6 col-md-6 col-xs-6">
                         <label htmlFor="otherName" className="text-dark d-block">Otros:</label>
                         <input id="otherName" type="text" maxLength={50} name="otherName" value={user.otherName || ""}
                             onChange={(e) => handleData(e)}
@@ -76,7 +76,7 @@ export default function RegisterForm(props) {
                         />
                     </div>
 
-                    <div className="col-6 mx-auto mt-1">
+                    <div className="col-12 col-sm-6 col-md-6 col-xs-6 mx-auto mt-1">
                         <label htmlFor="documentType" className="text-dark d-block">Tipo de documento</label>
                         <select id="documentType" className=""
                             name="documentType"
@@ -92,7 +92,7 @@ export default function RegisterForm(props) {
                         </select>
                     </div>
 
-                    <div className="col-6 mx-auto mt-1">
+                    <div className="col-12 col-sm-6 col-md-6 col-xs-6 mx-auto mt-1">
                         <label htmlFor="documentNumber" className="text-dark d-block">Número de documento</label>
                         <input id="documentNumber" type="text" maxLength={20} name="documentNumber" value={user.documentNumber || ""}
                             onChange={(e) => handleData(e)}
