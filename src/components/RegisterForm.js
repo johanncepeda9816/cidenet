@@ -31,7 +31,8 @@ export default function RegisterForm(props) {
     }
 
     useEffect(() => {
-        const email = user.firstName + "." + user.firstSurname + "@cidenet.com";
+        let email = user.firstName + "." + user.firstSurname + "@cidenet.com";
+        email = email.split(" ").join("");
         props.setUser({ ...user, email: email.toLowerCase() })
     }, [user.firstName, user.firstSurname])
 

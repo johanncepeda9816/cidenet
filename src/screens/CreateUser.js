@@ -4,7 +4,7 @@ import UserServices from "../services/UserServices"
 
 export default function CreateUser() {
 
-    const initialStateUser = { country: "Colombia", documentType: "Cédula de Ciudadanía", area: "Administración", active:true}
+    const initialStateUser = { country: "Colombia", documentType: "Cédula de Ciudadanía", area: "Administración", active: true }
     const [user, setUser] = useState(initialStateUser);
 
     const registerUser = () => {
