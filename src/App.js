@@ -1,5 +1,5 @@
 import './App.css';
-import { Home, CreateUser } from "./screens/index";
+import { Home, CreateUser, EditUser } from "./screens/index";
 import { Navbar } from "./components/index";
 
 import {
@@ -17,6 +17,7 @@ function App() {
         <Switch>
           <Route exact path="/" component={Home}/>
           <Route exact path="/createUser" component={CreateUser}/>
+          <Route exact path="/editUser" component={EditUser}/>
         </Switch>
       </Router>
     </div>

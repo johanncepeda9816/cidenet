@@ -1,11 +1,9 @@
-import React, { useMemo } from "react"
-import { useTable } from "react-table";
-import { Datatable } from "../components/index"
-import { COLUMNS } from "../constants/columns"
+import React, { useState } from "react"
+import { RegisterForm } from "../components/index"
 
-export default function Home() {
+export default function EditUser(){
 
-    const data = useMemo( () => [{
+    const [user, setUser] = useState({
         id:"1",
         active: false ? "Active" : "Inactivo",
         area: "Operación",
@@ -18,14 +16,13 @@ export default function Home() {
         otherName: "Alfonso",
         registrationDate: "2021-05-28T12:14",
         secondSurname: "Alza"
-    }])
-
-    const columns = useMemo(() => COLUMNS, []);
-
-    return (
-        <div className="container">
-            <h1>Home page</h1>
-            <Datatable data={data} columns={columns} />
+    });
+    
+    return(
+        <div className="container mt-5 mb-5">
+            <h1 className="display-5 text-center">Editar usuario</h1>
+            <hr className="mb-5"/>
+            <RegisterForm user={user} setUser={setUser} mode={1}/>
         </div>
     )
 }

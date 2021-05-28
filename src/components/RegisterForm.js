@@ -4,6 +4,7 @@ export default function RegisterForm(props) {
 
     const user = props.user;
     const [currentDate, setDate] = useState();
+    const mode = props.mode; // 1: creation, 2: edition
 
     useEffect(() => {
 
@@ -137,7 +138,14 @@ export default function RegisterForm(props) {
 
                         <div className="mt-3 row mx-auto">
                             <label className="col-4">Fecha de ingreso</label>
-                            <input onChange={(e) => handleData(e)} name="registrationDate" className="col-8" type="datetime-local" max={currentDate} required />
+                            <input onChange={(e) => handleData(e)}
+                                name="registrationDate"
+                                className="col-8"
+                                type="datetime-local"
+                                max={currentDate}
+                                value={user.registrationDate || ""}
+                                readOnly={mode == 1 ? true : false}
+                            />
                         </div>
 
                         <div className="mx-auto mt-3 row">

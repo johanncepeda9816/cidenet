@@ -1,39 +1,50 @@
+import ColumnFilter from "../components/ColumnFiler";
+
 export const COLUMNS = [
     {
         Header: "Primer Nombre",
-        accessor: "firstName"
+        accessor: "firstName",
+        Filter: ColumnFilter
     },
     {
         Header: "Otros Nombres",
-        accessor: "otherName"
+        accessor: "otherName",
+        Filter: ColumnFilter
     },
     {
         Header: "Primer Apellido",
-        accessor: "firstSurname"
+        accessor: "firstSurname",
+        Filter: ColumnFilter
     },
     {
         Header: "Segundo Apellido",
-        accessor: "secondSurname"
+        accessor: "secondSurname",
+        Filter: ColumnFilter
     },
     {
         Header: "Tipo de identificación",
-        accessor: "documentType"
+        accessor: "documentType",
+        Filter: ColumnFilter
     },
     {
         Header: "Número de identificación",
-        accessor: "documentNumber"
+        accessor: "documentNumber",
+        Filter: ColumnFilter
     },
     {
         Header: "País de Empleo",
-        accessor: "country"
+        accessor: "country",
+        Filter: ColumnFilter
     },
     {
         Header: "Correo electrónico",
-        accessor: "email"
+        accessor: "email",
+        Filter: ColumnFilter
     },
     {
         Header: "Estado",
-        accessor: "active"
+        accessor: "active",
+        Filter: ColumnFilter
     },
 
 ]
