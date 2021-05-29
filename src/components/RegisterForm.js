@@ -5,43 +5,53 @@ export default function RegisterForm(props) {
     const user = props.user;
     const [enterDate, setEnterDate] = useState("");
     const [currentDate, setCurrentDate] = useState("");
-    const [registrationDate, setRegistrationDate] = useState("");
     const mode = props.mode; // 1: creation, 2: edition
 
     useEffect(() => {
         setTimeout(() => {
-            var today = new Date();
-            var dd = today.getDate();
-            var mm = today.getMonth() + 1;
-            var yyyy = today.getFullYear();
-            var hour = today.getHours();
-            var minutes = today.getMinutes();
-            var seconds = today.getSeconds();
-
-            if (dd < 10) {
-                dd = "0" + dd
-            } else if (mm < 10) {
-                mm = "0" + mm
-            }
-
-            var lastDate = yyyy + "-" + mm + "-" + dd + "T" + hour + ":" + minutes + ":" + seconds;
-
-            setEnterDate(lastDate);
-            setCurrentDate(lastDate);
+            setCurrentDate(getCurrentDate());
         }, 1 * 1000);
     })
 
+    useEffect(() => {
+        setEnterDate(getCurrentDate());
+        console.log(enterDate);
+    }, [])
+
+    function getCurrentDate() {
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1;
+        var yyyy = today.getFullYear();
+        var hour = today.getHours();
+        var minutes = today.getMinutes();
+        var seconds = today.getSeconds();
+
+        if (dd < 10) {
+            dd = "0" + dd
+        } else if (mm < 10) {
+            mm = "0" + mm
+        }
+
+        var lastDate = yyyy + "-" + mm + "-" + dd + "T" + hour + ":" + minutes + ":" + seconds;
+
+        return lastDate;
+
+    }
+
     const handleData = (e, mode) => {
-        if(mode == 1){
+        if (mode == 1) {
             var pattern = new RegExp(/[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?,.ñ1234567890()@_]/);
             if (!pattern.test(e.target.value)) {
                 props.setUser({ ...user, [e.target.name]: e.target.value })
             }
-        }else{
-            var pattern = new RegExp(/[~`!#$%\^&*+=\\[\]\\';,/{}|\\":<>\?,.()@_]/);
+        } else if(mode == 2) {
+            var pattern = new RegExp(/[~`!#$%\^&*+=\\[\]\\';,/{}|\\":<>\?,.()@]/);
             if (!pattern.test(e.target.value)) {
                 props.setUser({ ...user, [e.target.name]: e.target.value })
             }
+        }else{
+            props.setUser({ ...user, [e.target.name]: e.target.value })
         }
     }
 
@@ -153,7 +163,7 @@ export default function RegisterForm(props) {
 
                         <div className="mt-3 row mx-auto">
                             <label className="col-4">Fecha de ingreso</label>
-                            <input onChange={(e) => handleData(e, 2)}
+                            <input onChange={(e) => handleData(e, 3)}
                                 name="enterDate"
                                 className="col-8"
                                 type="datetime-local"
@@ -172,13 +182,7 @@ export default function RegisterForm(props) {
                             <label className="col-4">Fecha de registro</label>
                             {
                                 mode == 1 ?
-                                    <input onChange={(e) => handleData(e)}
-                                        name="registrationDate"
-                                        className="col-8"
-                                        type="datetime-local"
-                                        value={currentDate}
-                                        readOnly
-                                    />
+                                    <label className="col-8">{currentDate.split("T").join(" ")}</label>
                                     :
                                     <label className="col-8">{user.registrationDate}</label>
                             }

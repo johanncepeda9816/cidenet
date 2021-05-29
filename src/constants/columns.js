@@ -1,6 +1,10 @@
 import ColumnFilter from "../components/ColumnFiler";
 
 export const COLUMNS = [
+    
+    {
+        Header: "Opciones",
+    },
     {
         Header: "Primer Nombre",
         accessor: "firstName",
@@ -65,9 +69,6 @@ export const COLUMNS = [
         Header: "Estado",
         accessor: "active",
         Filter: ColumnFilter
-    },
-    {
-        Header: "Opciones",
     },
 
 ]

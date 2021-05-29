@@ -61,7 +61,7 @@ export default function Home() {
 
 
     return (
-        <div className="container mt-5 mb-5">
+        <div className="fluid-container m-3 mt-5 mb-5">
             <h1 className="text-center display-5">Lista de usuarios</h1>
             <hr className="mb-5" />
             <Datatable data={data} columns={columns} deleteUser={deleteUser} />
