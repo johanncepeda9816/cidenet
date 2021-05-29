@@ -3,39 +3,54 @@ import React, { useEffect, useState } from "react";
 export default function RegisterForm(props) {
 
     const user = props.user;
-    const [currentDate, setDate] = useState();
+    const [enterDate, setEnterDate] = useState("");
+    const [currentDate, setCurrentDate] = useState("");
+    const [registrationDate, setRegistrationDate] = useState("");
     const mode = props.mode; // 1: creation, 2: edition
 
     useEffect(() => {
+        setTimeout(() => {
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth() + 1;
+            var yyyy = today.getFullYear();
+            var hour = today.getHours();
+            var minutes = today.getMinutes();
+            var seconds = today.getSeconds();
 
-        var today = new Date();
-        var dd = today.getDate();
-        var mm = today.getMonth() + 1;
-        var yyyy = today.getFullYear();
-        var hour = today.getHours();
-        var minutes = today.getMinutes();
-        var seconds = today.getSeconds();
+            if (dd < 10) {
+                dd = "0" + dd
+            } else if (mm < 10) {
+                mm = "0" + mm
+            }
 
-        if (dd < 10) {
-            dd = "0" + dd
-        } else if (mm < 10) {
-            mm = "0" + mm
-        }
+            var lastDate = yyyy + "-" + mm + "-" + dd + "T" + hour + ":" + minutes + ":" + seconds;
 
-        var lastDate = yyyy + "-" + mm + "-" + dd + "T" + hour + ":" + minutes + ":00";
-
-        setDate(lastDate);
+            setEnterDate(lastDate);
+            setCurrentDate(lastDate);
+        }, 1 * 1000);
     })
 
-    const handleData = (e) => {
-        props.setUser({ ...user, [e.target.name]: e.target.value })
+    const handleData = (e, mode) => {
+        if(mode == 1){
+            var pattern = new RegExp(/[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?,.ñ1234567890()@_]/);
+            if (!pattern.test(e.target.value)) {
+                props.setUser({ ...user, [e.target.name]: e.target.value })
+            }
+        }else{
+            var pattern = new RegExp(/[~`!#$%\^&*+=\\[\]\\';,/{}|\\":<>\?,.()@_]/);
+            if (!pattern.test(e.target.value)) {
+                props.setUser({ ...user, [e.target.name]: e.target.value })
+            }
+        }
     }
 
     useEffect(() => {
-        let email = user.firstName + "." + user.firstSurname + "@cidenet.com";
+        var domain = (user.country == "Colombia") ? "co" : "us"
+        let email = user.firstName + "." + user.firstSurname + "@cidenet.com." + domain;
         email = email.split(" ").join("");
         props.setUser({ ...user, email: email.toLowerCase() })
-    }, [user.firstName, user.firstSurname])
+    }, [user.firstName, user.firstSurname, user.country])
 
     return (
         <div className="">
@@ -45,7 +60,7 @@ export default function RegisterForm(props) {
                     <div className="col-12 col-sm-6 col-md-6 col-xs-6">
                         <label htmlFor="firstSurname" className="text-dark d-block">Primer apellido</label>
                         <input id="firstSurname" type="text" maxLength={20} name="firstSurname" value={user.firstSurname || ""}
-                            onChange={(e) => handleData(e)}
+                            onChange={(e) => handleData(e, 1)}
                             className="col-8"
                             required
                         />
@@ -53,7 +68,7 @@ export default function RegisterForm(props) {
                     <div className="col-12 col-sm-6 col-md-6 col-xs-6">
                         <label htmlFor="secondSurname" className="text-dark d-block">Segundo apellido</label>
                         <input id="secondSurname" type="text" maxLength={20} name="secondSurname" value={user.secondSurname || ""}
-                            onChange={(e) => handleData(e)}
+                            onChange={(e) => handleData(e, 1)}
                             required
                             className="col-8"
 
@@ -62,7 +77,7 @@ export default function RegisterForm(props) {
                     <div className="col-12 col-sm-6 col-md-6 col-xs-6">
                         <label htmlFor="firstName" className="text-dark d-block">Primer nombre</label>
                         <input id="firstName" type="text" maxLength={20} name="firstName" value={user.firstName || ""}
-                            onChange={(e) => handleData(e)}
+                            onChange={(e) => handleData(e, 1)}
                             className="col-8"
                             required
                         />
@@ -71,7 +86,7 @@ export default function RegisterForm(props) {
                     <div className="col-12 col-sm-6 col-md-6 col-xs-6">
                         <label htmlFor="otherName" className="text-dark d-block">Otros:</label>
                         <input id="otherName" type="text" maxLength={50} name="otherName" value={user.otherName || ""}
-                            onChange={(e) => handleData(e)}
+                            onChange={(e) => handleData(e, 1)}
                             className="mx-auto col-8"
                         />
                     </div>
@@ -95,7 +110,7 @@ export default function RegisterForm(props) {
                     <div className="col-12 col-sm-6 col-md-6 col-xs-6 mx-auto mt-1">
                         <label htmlFor="documentNumber" className="text-dark d-block">Número de documento</label>
                         <input id="documentNumber" type="text" maxLength={20} name="documentNumber" value={user.documentNumber || ""}
-                            onChange={(e) => handleData(e)}
+                            onChange={(e) => handleData(e, 2)}
                             className="mx-auto"
                             className="col-8"
                             required
@@ -138,20 +153,38 @@ export default function RegisterForm(props) {
 
                         <div className="mt-3 row mx-auto">
                             <label className="col-4">Fecha de ingreso</label>
-                            <input onChange={(e) => handleData(e)}
-                                name="registrationDate"
+                            <input onChange={(e) => handleData(e, 2)}
+                                name="enterDate"
                                 className="col-8"
                                 type="datetime-local"
-                                max={currentDate}
-                                value={user.registrationDate || ""}
-                                readOnly={mode == 1 ? true : false}
+                                max={enterDate}
+                                value={user.enterDate || enterDate}
+                                readOnly={mode == 1 ? false : true}
                             />
                         </div>
 
                         <div className="mx-auto mt-3 row">
                             <label className="d-inline col-4">Correo electrónico</label>
-                            <input className="col-8" value={user.email || ""} type="email" placeholder={user.email || ""} readOnly />
+                            <input className="col-8" maxLength={300} value={user.email || ""} type="email" placeholder={user.email || ""} readOnly />
                         </div>
+
+                        <div className="mt-3 row mx-auto">
+                            <label className="col-4">Fecha de registro</label>
+                            {
+                                mode == 1 ?
+                                    <input onChange={(e) => handleData(e)}
+                                        name="registrationDate"
+                                        className="col-8"
+                                        type="datetime-local"
+                                        value={currentDate}
+                                        readOnly
+                                    />
+                                    :
+                                    <label className="col-8">{user.registrationDate}</label>
+                            }
+
+                        </div>
+
                     </div>
                 </div>
             </form>

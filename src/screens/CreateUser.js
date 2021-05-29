@@ -8,13 +8,14 @@ export default function CreateUser() {
     const [user, setUser] = useState(initialStateUser);
 
     const registerUser = () => {
-        console.log(user);
         UserServices.registerUser(user)
             .then(res => {
                 if (res.status == '201') {
-                    console.log("Usuario Creado");
+                    alert("Usuario Creado");
+                    setUser(initialStateUser);
                 } else {
                     console.log("Ha ocurrido un error");
+                    alert("Error inesperado, revisa los datos");
                 }
             })
     }
@@ -23,7 +24,7 @@ export default function CreateUser() {
         <div className="container mt-5">
             <h1 className="d-block display-5 text-center">Crear usuario</h1>
             <hr className="mb-5" />
-            <RegisterForm user={user} setUser={setUser} mode={2}/>
+            <RegisterForm user={user} setUser={setUser} mode={1}/>
             <div className="d-flex justify-content-center mb-5">
                 <button type="submit" onClick={() => registerUser()} className="d-block btn btn-block btn-primary btn-md mt-5">Registrar</button>
             </div>

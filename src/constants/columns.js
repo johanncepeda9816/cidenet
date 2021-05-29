@@ -47,8 +47,18 @@ export const COLUMNS = [
         Filter: ColumnFilter
     },
     {
-        Header: "Fecha de ingreso",
+        Header: "Fecha de registro",
         accessor: "registrationDate",
+        Filter: ColumnFilter
+    },
+    {
+        Header: "Fecha de ingreso",
+        accessor: "enterDate",
+        Filter: ColumnFilter
+    },
+    {
+        Header: "Útima modificación",
+        accessor: "modificationDate",
         Filter: ColumnFilter
     },
     {

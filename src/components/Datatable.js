@@ -70,15 +70,15 @@ export default function Datatable(props) {
                                         >
                                             {cell.render('Cell')}
                                             {
-                                                j == 11 &&
+                                                j == 13 &&
                                                 <div className="col-12 row w-100 mx-auto">
                                                     <div className="col-6">
-                                                        <IconButton aria-label="edit" size="small" onClick={() => navigation.push("/editUser", { user: cell.row.original, mode: 1 })}>
+                                                        <IconButton aria-label="edit" size="small" onClick={() => navigation.push("/editUser", { user: cell.row.original })}>
                                                             <EditIcon />
                                                         </IconButton>
                                                     </div>
                                                     <div className="col-6">
-                                                        <IconButton aria-label="delete" size="small" onClick={() => navigation.push("/editUser", { user: cell.row.original, mode: 1 })}>
+                                                        <IconButton aria-label="delete" size="small" onClick={() => props.deleteUser(cell.row.original.documentNumber)}>
                                                             <DeleteIcon />
                                                         </IconButton>
                                                     </div>
