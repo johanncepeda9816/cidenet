@@ -1,5 +1,5 @@
-import React, { useEffect } from "react"
-import { Link, useHistory } from "react-router-dom";
+import React from "react"
+import { useHistory } from "react-router-dom";
 import { useTable, useFilters, usePagination } from "react-table";
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from "@material-ui/core/IconButton"
@@ -27,7 +27,7 @@ export default function Datatable(props) {
         prepareRow,
         pageOptions,
         page,
-        state: { pageIndex, pageSize = 1 },
+        state: { pageIndex },
         previousPage,
         nextPage,
         canPreviousPage,
@@ -78,7 +78,7 @@ export default function Datatable(props) {
                                             >
                                                 {cell.render('Cell')}
                                                 {
-                                                    j == 0 &&
+                                                    j === 0 &&
                                                     <div className="col-12 row w-100 mx-auto">
                                                         <div className="col-6">
                                                             <IconButton aria-label="edit" size="small" onClick={() => navigation.push("/editUser", { user: cell.row.original })}>

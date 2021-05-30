@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
+import UserServices from "../services/UserServices";
 
 export default function RegisterForm(props) {
 
     const user = props.user;
     const [enterDate, setEnterDate] = useState("");
     const [currentDate, setCurrentDate] = useState("");
+    const [gettingEmail, setGettingEmail] = useState(false);
     const mode = props.mode; // 1: creation, 2: edition
 
     useEffect(() => {
@@ -31,6 +33,8 @@ export default function RegisterForm(props) {
             dd = "0" + dd
         } else if (mm < 10) {
             mm = "0" + mm
+        }else if(seconds<10){
+            seconds = "0" + seconds
         }
 
         var lastDate = yyyy + "-" + mm + "-" + dd + "T" + hour + ":" + minutes + ":" + seconds;
@@ -55,12 +59,23 @@ export default function RegisterForm(props) {
         }
     }
 
-    useEffect(() => {
-        var domain = (user.country == "Colombia") ? "co" : "us"
-        let email = user.firstName + "." + user.firstSurname + "@cidenet.com." + domain;
-        email = email.split(" ").join("");
-        props.setUser({ ...user, email: email.toLowerCase() })
-    }, [user.firstName, user.firstSurname, user.country])
+    const generateEmail = () => {
+        if(user.firstName && user.firstSurname && user.country && !gettingEmail){
+            setGettingEmail(true);
+            let name = user.firstName.split(" ").join("");
+            let lastName = user.firstSurname.split(" ").join("");
+            let country = user.country;
+            UserServices.generateEmail(name, lastName, country)
+            .then(res => res.json())
+            .then(data => {
+                props.setUser({ ...user, email: data.email })
+                setGettingEmail(false);
+            })
+            .catch(error => {
+                console.log(error);
+            })
+        }
+    }
 
     return (
         <div className="">
@@ -103,7 +118,7 @@ export default function RegisterForm(props) {
 
                     <div className="col-12 col-sm-6 col-md-6 col-xs-6 mx-auto mt-1">
                         <label htmlFor="documentType" className="text-dark d-block">Tipo de documento</label>
-                        <select id="documentType" className=""
+                        <select id="documentType"
                             name="documentType"
                             onChange={(e) => handleData(e)}
                             value={user.documentType || "Cédula de Ciudadanía"}
@@ -122,6 +137,7 @@ export default function RegisterForm(props) {
                         <input id="documentNumber" type="text" maxLength={20} name="documentNumber" value={user.documentNumber || ""}
                             onChange={(e) => handleData(e, 2)}
                             className="mx-auto"
+                            onFocus={() => generateEmail()}
                             className="col-8"
                             required
                         />

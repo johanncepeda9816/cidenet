@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo, useState } from "react"
-import { useTable } from "react-table";
 import { Datatable } from "../components/index"
 import { COLUMNS } from "../constants/columns"
 import UserServices from "../services/UserServices";

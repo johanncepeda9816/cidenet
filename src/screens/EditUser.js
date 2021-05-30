@@ -18,7 +18,7 @@ export default function EditUser(props){
                 alert("Usuario actualizado correctamente");
             }else{
                 alert("Error actualizando el usuario");
-                console.log(res.status);
+                console.log(res.statusText);
             }
         })
         .catch(error => console.log(error));

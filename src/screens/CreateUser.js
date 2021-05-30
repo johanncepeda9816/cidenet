@@ -10,11 +10,11 @@ export default function CreateUser() {
     const registerUser = () => {
         UserServices.registerUser(user)
             .then(res => {
-                if (res.status == '201') {
+                if (res.status == '200') {
                     alert("Usuario Creado");
                     setUser(initialStateUser);
                 } else {
-                    console.log("Ha ocurrido un error");
+                    console.log(res);
                     alert("Error inesperado, revisa los datos");
                 }
             })
