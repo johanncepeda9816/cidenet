@@ -33,7 +33,7 @@ export default function RegisterForm(props) {
             dd = "0" + dd
         } else if (mm < 10) {
             mm = "0" + mm
-        }else if(seconds<10){
+        } else if (seconds < 10) {
             seconds = "0" + seconds
         }
 
@@ -49,31 +49,31 @@ export default function RegisterForm(props) {
             if (!pattern.test(e.target.value)) {
                 props.setUser({ ...user, [e.target.name]: e.target.value })
             }
-        } else if(mode == 2) {
+        } else if (mode == 2) {
             var pattern = new RegExp(/[~`!#$%\^&*+=\\[\]\\';,/{}|\\":<>\?,.()@]/);
             if (!pattern.test(e.target.value)) {
                 props.setUser({ ...user, [e.target.name]: e.target.value })
             }
-        }else{
+        } else {
             props.setUser({ ...user, [e.target.name]: e.target.value })
         }
     }
 
     const generateEmail = () => {
-        if(user.firstName && user.firstSurname && user.country && !gettingEmail){
+        if (user.firstName && user.firstSurname && user.country && !gettingEmail) {
             setGettingEmail(true);
             let name = user.firstName.split(" ").join("");
             let lastName = user.firstSurname.split(" ").join("");
             let country = user.country;
             UserServices.generateEmail(name, lastName, country)
-            .then(res => res.json())
-            .then(data => {
-                props.setUser({ ...user, email: data.email })
-                setGettingEmail(false);
-            })
-            .catch(error => {
-                console.log(error);
-            })
+                .then(res => res.json())
+                .then(data => {
+                    props.setUser({ ...user, email: data.email })
+                    setGettingEmail(false);
+                })
+                .catch(error => {
+                    console.log(error);
+                })
         }
     }
 
@@ -194,16 +194,24 @@ export default function RegisterForm(props) {
                             <input className="col-8" maxLength={300} value={user.email || ""} type="email" placeholder={user.email || ""} readOnly />
                         </div>
 
-                        <div className="mt-3 row mx-auto">
-                            <label className="col-4">Fecha de registro</label>
-                            {
-                                mode == 1 ?
-                                    <label className="col-8">{currentDate.split("T").join(" ")}</label>
-                                    :
-                                    <label className="col-8">{user.registrationDate}</label>
-                            }
+                        {
+                            mode == 1 ?
+                                <div className="mt-3 row mx-auto">
+                                    <label className="col-4">Fecha de registro</label>
+                                    {
+                                        mode == 1 ?
+                                            <label className="col-8">{currentDate.split("T").join(" ")}</label>
+                                            :
+                                            <label className="col-8">{user.registrationDate}</label>
+                                    }
 
-                        </div>
+                                </div>
+                                :
+                                <div className="mt-3 row mx-auto">
+                                    <label className="col-4">Fecha de modificación</label>
+                                    <label className="col-8">{currentDate.split("T").join(" ")}</label>
+                                </div>
+                        }
 
                     </div>
                 </div>
