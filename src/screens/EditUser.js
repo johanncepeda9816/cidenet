@@ -30,7 +30,7 @@ export default function EditUser(props){
             <hr className="mb-5"/>
             <RegisterForm user={newUser} setUser={setNewUser} mode={2}/>
             <div className="d-flex justify-content-center mb-5">
-                <button type="submit" onClick={() => editUser()} className="d-block btn btn-block btn-dark btn-md mt-5">Editar</button>
+                <button type="submit" onClick={() => editUser()} className="col-12 col-sm-6 col-md-6 col-xs-6 btn btn-block btn-dark btn-md mt-5">Editar</button>
             </div>
         </div>
     )

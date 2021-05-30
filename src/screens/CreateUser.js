@@ -18,6 +18,10 @@ export default function CreateUser() {
                     alert("Error inesperado, revisa los datos");
                 }
             })
+            .catch(error => {
+                alert("Error en el servidor");
+                console.log(error);
+            })
     }
 
     return (
@@ -26,7 +30,7 @@ export default function CreateUser() {
             <hr className="mb-5" />
             <RegisterForm user={user} setUser={setUser} mode={1}/>
             <div className="d-flex justify-content-center mb-5">
-                <button type="submit" onClick={() => registerUser()} className="d-block btn btn-block btn-dark btn-md mt-5">Registrar</button>
+                <button type="submit" onClick={() => registerUser()} className="col-12 col-sm-6 col-md-6 col-xs-6 btn btn-block btn-dark btn-md mt-5">Registrar</button>
             </div>
         </div>
     )
