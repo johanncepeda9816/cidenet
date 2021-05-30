@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react"
-import { useLocation } from "react-router";
+import { useHistory, useLocation } from "react-router";
 import { RegisterForm } from "../components/index"
 import UserServices from "../services/UserServices";
 
 export default function EditUser(props){
 
     const location = useLocation();
+    const history = useHistory();
 
     const [user, setUser] = useState(location.state.user);
     const [newUser, setNewUser] = useState(location.state.user);
@@ -16,6 +17,7 @@ export default function EditUser(props){
         .then(res => {
             if(res.status == '200'){
                 alert("Usuario actualizado correctamente");
+                history.push("/");
             }else{
                 alert("Error actualizando el usuario");
                 console.log(res.statusText);

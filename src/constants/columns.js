@@ -67,7 +67,7 @@ export const COLUMNS = [
     },
     {
         Header: "Estado",
-        accessor: "active",
+        accessor: "status",
         Filter: ColumnFilter
     },
 

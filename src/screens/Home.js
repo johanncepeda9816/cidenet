@@ -21,7 +21,7 @@ export default function Home() {
                 let data = []
                 retrieveData.map((item) => {
                     let status = item.active ? "Activo" : "Inactive";
-                    item.active = status;
+                    item.status = status;
                     data.push(item);
                 })
 
