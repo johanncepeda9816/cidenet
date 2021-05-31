@@ -2,19 +2,21 @@ import React, { useEffect, useMemo, useState } from "react"
 import { Datatable } from "../components/index"
 import { COLUMNS } from "../constants/columns"
 import UserServices from "../services/UserServices";
-import { confirmAlert } from 'react-confirm-alert'; 
-import 'react-confirm-alert/src/react-confirm-alert.css'; 
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 export default function Home() {
 
     const columns = useMemo(() => COLUMNS, []);
     const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         retrieveUsers();
     }, [])
 
     const retrieveUsers = () => {
+        setLoading(true);
         UserServices.getAllUsers()
             .then(res => res.json())
             .then(retrieveData => {
@@ -26,6 +28,7 @@ export default function Home() {
                 })
 
                 setData(data);
+                setLoading(false);
             })
             .catch(error => console.log(error));
     }
@@ -52,7 +55,7 @@ export default function Home() {
                 },
                 {
                     label: 'Cancelar',
-                    onClick: () => {}
+                    onClick: () => { }
                 }
             ]
         });
@@ -63,7 +66,11 @@ export default function Home() {
         <div className="fluid-container m-3 mt-5 mb-5">
             <h1 className="text-center display-5">Lista de usuarios</h1>
             <hr className="mb-5" />
-            <Datatable data={data} columns={columns} deleteUser={deleteUser} />
+            {
+                !loading ?
+                    <Datatable data={data} columns={columns} deleteUser={deleteUser} />
+                    : <div className="d-flex justify-content-center"><div class="spinner-border" role="status"/></div>
+            }
         </div>
     )
 }
