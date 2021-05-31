@@ -23,6 +23,8 @@ export default function Home() {
                 let data = []
                 retrieveData.map((item) => {
                     let status = item.active ? "Activo" : "Inactive";
+                    let enterDate = item.enterDate.split("T").join(" ");
+                    item.enterDate = enterDate;
                     item.status = status;
                     data.push(item);
                 })

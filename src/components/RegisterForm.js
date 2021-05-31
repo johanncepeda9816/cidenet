@@ -17,7 +17,7 @@ export default function RegisterForm(props) {
 
     useEffect(() => {
         setEnterDate(getCurrentDate());
-        console.log(enterDate);
+        console.log(user);
     }, [])
 
     function getCurrentDate() {
@@ -37,7 +37,7 @@ export default function RegisterForm(props) {
             seconds = "0" + seconds
         }
 
-        var lastDate = yyyy + "-" + mm + "-" + dd + "T" + hour + ":" + minutes + ":" + seconds;
+        var lastDate = yyyy + "-" + mm + "-" + dd;
 
         return lastDate;
 
@@ -177,22 +177,30 @@ export default function RegisterForm(props) {
                             </select>
                         </div>
 
-                        <div className="mt-3 row mx-auto">
-                            <label className="col-4">Fecha de ingreso</label>
-                            <input onChange={(e) => handleData(e, 3)}
-                                name="enterDate"
-                                className="col-8"
-                                type="datetime-local"
-                                max={enterDate}
-                                value={user.enterDate || enterDate}
-                                readOnly={mode == 1 ? false : true}
-                            />
-                        </div>
-
                         <div className="mx-auto mt-3 row">
                             <label className="d-inline col-4">Correo electrónico</label>
                             <input className="col-8" maxLength={300} value={user.email || ""} type="email" placeholder={user.email || ""} readOnly />
                         </div>
+
+
+                        <div className="mt-3 row mx-auto">
+                        <label className="col-4">Fecha de ingreso</label>
+                        {
+                            mode == 1 ?
+                            <input onChange={(e) => handleData(e, 3)}
+                                name="enterDate"
+                                className="col-8"
+                                type="date"
+                                max={currentDate}
+                                value={user.enterDate ? user.enterDate.split(" ").join("T") : enterDate}
+                                readOnly={mode == 1 ? false : true}
+                            />
+                            :
+                            <label className="col-8">{user.enterDate}</label>
+
+                        }
+                        </div>
+
 
                         {
                             mode == 1 ?
@@ -202,7 +210,7 @@ export default function RegisterForm(props) {
                                         mode == 1 ?
                                             <label className="col-8">{currentDate.split("T").join(" ")}</label>
                                             :
-                                            <label className="col-8">{user.registrationDate}</label>
+                                            <label className="col-8">{user.registrationDate.spit("T").join(" ")}</label>
                                     }
 
                                 </div>
